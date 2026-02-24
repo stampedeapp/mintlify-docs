@@ -22,6 +22,12 @@
             ]
           },
           {
+            "group": "Hello World",
+            "pages": [
+              "hello_world"
+            ]
+          },
+          {
             "group": "Customization",
             "pages": [
               "essentials/settings",
