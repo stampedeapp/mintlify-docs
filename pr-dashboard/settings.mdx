@@ -1,0 +1,32 @@
+---
+title: Settings
+description: Configure GitHub authentication, repository storage, analysis behavior, and appearance.
+---
+
+The Settings page handles initial setup on first launch and ongoing configuration changes afterward. It's where you connect your GitHub account, tell the app where to store cloned repositories, and tune behavior like polling frequency and analysis timeouts.
+
+## GitHub authentication
+
+The app uses GitHub's device flow for authentication — you click a button, get directed to GitHub to authorize the app, and the token is stored locally. Your avatar and username appear once connected, confirming the account. You can sign out at any time, which clears the stored token.
+
+<Accordion title="Why device flow instead of a personal access token?">
+  Device flow is a standard OAuth pattern that doesn't require you to generate and paste a token manually. It also means the app never sees your GitHub password. The trade-off is that it requires a brief trip to the browser during setup, but after that the token is stored locally and refreshed automatically.
+</Accordion>
+
+## Repository configuration
+
+The **repos directory** setting tells the app where to clone repositories on your local filesystem. The app needs local clones to run AI analysis, since Claude reads the actual files rather than working from the GitHub API alone. A folder picker dialog makes it easy to choose the right location.
+
+## Analysis and polling
+
+**Claude timeout** controls how long the app will wait for an AI analysis to complete before giving up (default: 120,000 ms / 2 minutes). Increase this for very large repositories or PRs with many changed files. **Poll interval** sets how often the app checks GitHub for new or updated pull requests (minimum 30 seconds, default 60 seconds). **Auto-analyze** is a toggle that, when enabled, automatically runs AI analysis on every new PR that appears during polling — useful if you want analysis results ready before you even open a PR.
+
+## Appearance
+
+A theme selector lets you choose between Light, Dark, or System (follows your OS preference). The app uses OKLCH color space for its theme, which means colors are perceptually uniform across light and dark modes.
+
+## Testing
+
+A "Send Test Notification" button lets you verify that desktop notifications are working correctly. This is helpful during initial setup to confirm your OS notification permissions are configured.
+
+<Note>Settings are stored locally in your system's application data directory. On macOS this is ~/Library/Application Support/pr-dashboard/. No configuration data is sent to any external service.</Note>

@@ -1,0 +1,24 @@
+---
+title: Chat
+description: Ask follow-up questions about any pull request in a conversational interface powered by Claude.
+---
+
+The Chat panel lets you have a back-and-forth conversation with Claude about the pull request you're reviewing. It appears as the third tab in the right panel when you're in Deep review mode. Instead of just reading a static analysis, you can ask specific questions — "Why was this file restructured?", "Is this change backward compatible?", "What happens if this function throws?" — and get answers grounded in the actual code.
+
+## What Claude knows
+
+When you chat about a PR, Claude has access to the full pull request context: the title, description, author, source and target branches, all changed files with their additions and deletions, and the AI analysis summary if one has been run. Claude also has access to the local clone of the repository, so it can read files, search for symbols, and explore the codebase beyond just the diff to answer your questions accurately.
+
+## How conversations work
+
+Messages appear in a familiar chat layout — your messages on the right in blue, Claude's responses on the left in gray with full Markdown formatting. The conversation maintains history for the current PR session, so you can build on previous questions. A "Thinking..." indicator shows when Claude is working on a response.
+
+<Accordion title="How does 'Explain comment' connect to Chat?">
+  When you see an AI suggestion in the diff viewer and click "Explain comment," the app switches to Deep mode and automatically sends that suggestion as a message in the Chat panel. Claude then explains its reasoning in conversational form, and you can ask follow-up questions from there. This turns a one-line suggestion into a dialogue, which is especially useful when you disagree with the AI or need to understand the nuance behind a recommendation.
+</Accordion>
+
+<Accordion title="Are chat conversations saved?">
+  Chat history persists for the duration of your current session with a given PR. If you switch to a different PR and come back, or restart the app, the conversation resets. You can explicitly clear a conversation using the clear action. This is intentional — chat is meant for in-the-moment exploration, not as a permanent record.
+</Accordion>
+
+<Note>Chat uses up to 10 turns of tool use per response. For very complex questions that require extensive codebase exploration, Claude may need to be more concise in its tool usage compared to the full analysis, which gets 30 turns.</Note>

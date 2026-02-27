@@ -1,0 +1,24 @@
+---
+title: Prompts
+description: Create and manage custom prompt templates that control what the AI analysis focuses on.
+---
+
+The Prompts page lets you write reusable prompt templates that shape how Claude analyzes your pull requests. Instead of relying on a single generic review prompt, you can create templates tailored to specific repositories, coding standards, or review criteria — and set a default that applies to all analyses.
+
+## The editor
+
+The page is split into two panels. The left panel lists your saved prompts with their names, last-updated timestamps, and a star icon indicating which one is the default. The right panel is a rich text editor powered by Tiptap with a formatting toolbar (bold, italic, headings, lists, code blocks). You write your prompt in natural language, describing what you want Claude to pay attention to during analysis.
+
+## Default prompt
+
+Starring a prompt marks it as the default, meaning it will be used for all AI analyses unless a repo-specific prompt exists. You can change the default at any time by starring a different prompt. Having a sensible default — for example, one that emphasizes your team's coding standards and common pitfalls — ensures every analysis is at least somewhat tailored to how your team works.
+
+<Accordion title="How are prompts used during analysis?">
+  When the app runs an AI analysis, it includes the active prompt template as part of the instructions sent to Claude. The prompt shapes what Claude focuses on — for example, a prompt that says "pay special attention to SQL injection risks and authentication checks" will produce an analysis that emphasizes security, while one focused on "performance and memory usage" will surface different issues. The prompt supplements (rather than replaces) the base analysis structure, so you always get risk level, summary, and suggestions regardless of what your prompt says.
+</Accordion>
+
+<Accordion title="Can I have different prompts for different repos?">
+  Yes. Custom per-repo analysis prompts can be stored in the app's data directory under a prompts folder, named by the repository's owner and name. When an analysis runs for that repo, the repo-specific prompt takes priority over the default. This is useful if you maintain repositories with very different review needs — a security-sensitive backend service versus a design system, for example.
+</Accordion>
+
+<Warning>Deleting a prompt that is currently set as the default will remove the default. Make sure to star another prompt if you want analyses to continue using a custom template.</Warning>

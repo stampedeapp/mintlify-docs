@@ -1,0 +1,28 @@
+---
+title: PR Actions
+description: Take action on pull requests without leaving the app — approve, manage reviewers, check CI, and more.
+---
+
+The PR header and stats bar provide a set of actions that let you manage a pull request without switching to GitHub in the browser. These are the most common operations you'd perform during or after a code review, consolidated into the app so your review workflow stays uninterrupted.
+
+## Header actions
+
+The header bar sits above the review content and includes several action buttons. **Analyze** triggers an AI analysis of the PR (or re-analysis if one has already been run). **Open on GitHub** launches the PR page in your default browser for anything the app doesn't cover. The **Actions dropdown** contains three operations: Approve (with an optional message and GIF picker), Rebase (if the PR branch is behind the base branch), and Close PR (with a confirmation step).
+
+## CI status
+
+The stats bar shows a colored dot for the overall CI status — green for passing, red for failing, yellow for in-progress, and orange for mixed results. Clicking on it expands a detailed view of every check run, sorted with failures first. Each check shows its name, status, and conclusion, with a link to the full check details on GitHub. If any checks have failed, a "Re-run failed checks" button appears so you can retry without leaving the app.
+
+## Review management
+
+The stats bar also displays review status at a glance: how many approvals and how many "changes requested" reviews have been submitted, each with the reviewer's avatar. Separately, requested reviewers who haven't yet responded are shown with their avatars. An "Add reviewer" button opens a searchable popover of repository collaborators so you can assign additional reviewers.
+
+<Accordion title="How does the Approve action work?">
+  Clicking Approve opens a dialog where you can write an optional review message. There's also a GIF picker if you want to celebrate a great PR. Submitting the dialog posts an approving review to GitHub via the API, the same as clicking "Approve" on the GitHub web interface.
+</Accordion>
+
+<Accordion title="What does the 'behind' indicator mean?">
+  When the PR branch has commits on the base branch that it hasn't incorporated yet, a yellow badge appears in the stats bar showing how many commits it's behind. This is a signal that the PR may need a rebase before merging — which you can trigger directly from the Actions dropdown.
+</Accordion>
+
+<Note>Branch name is displayed in the stats bar with a copy button next to it. Clicking the copy button copies the full branch name to your clipboard, which is useful for checking out the branch locally.</Note>
