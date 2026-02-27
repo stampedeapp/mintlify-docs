@@ -67,7 +67,17 @@
           },
           {
             "group": "PR Dashboard App",
-            "pages": []
+            "pages": [
+              "pr-dashboard/pr-list",
+              "pr-dashboard/diff-viewer",
+              "pr-dashboard/chat",
+              "pr-dashboard/ai-analysis",
+              "pr-dashboard/insights",
+              "pr-dashboard/pr-actions",
+              "pr-dashboard/prompts",
+              "pr-dashboard/review-modes",
+              "pr-dashboard/settings"
+            ]
           }
         ]
       },
