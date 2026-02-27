@@ -1,0 +1,28 @@
+---
+title: PR List
+description: Browse and filter pull requests from all your followed repositories in one place.
+---
+
+The PR list is the left sidebar of the app and your starting point for every review session. It pulls open pull requests from all the GitHub repositories you follow and presents them in a single, searchable list so you never have to hop between browser tabs to figure out what needs your attention.
+
+## Two tabs, two jobs
+
+The sidebar splits into **To Review** and **My PRs**. "To Review" shows pull requests from others that are waiting on you. "My PRs" shows your own open pull requests so you can keep an eye on CI status, review progress, and whether anything has fallen behind.
+
+## Finding the right PR
+
+A search box at the top filters by PR title, repository name, author, or PR number (type `#123` to jump straight to a number). Below that, a repository dropdown lets you narrow the list to one or more repos, and a sort toggle flips between newest-first and oldest-first ordering. These filters combine, so you can search for a keyword within a specific repo sorted however you like.
+
+## What each PR item shows
+
+Every item in the list displays the author's avatar, the PR title, the repository name, the PR number, and the number of changed files. A small colored dot indicates CI status at a glance — green for passing, red for failing, yellow for in-progress. If an AI analysis is currently running for that PR, a spinning indicator appears on the item so you know work is happening in the background.
+
+<Accordion title="How does the PR list stay up to date?">
+  The app polls GitHub at a configurable interval (default 60 seconds) to fetch the latest pull requests. You can also hit the refresh button in the sidebar header to trigger an immediate update. When auto-analyze is enabled in settings, any newly discovered PRs are automatically queued for AI analysis as soon as they appear.
+</Accordion>
+
+<Accordion title="How do notifications work?">
+  When new pull requests arrive during a poll, the app sends a desktop notification. Clicking the notification selects that PR and switches directly to the review view. This means you can leave the app running in the background and get alerted when something needs your attention.
+</Accordion>
+
+<Note>If the GitHub fetch fails — for example due to a network issue or an expired token — a red error banner appears at the top of the PR list. The banner is dismissible and the app will retry on the next poll cycle.</Note>

@@ -1,0 +1,28 @@
+---
+title: AI Analysis
+description: Automated AI-powered code review that surfaces risk, architecture impact, and actionable suggestions.
+---
+
+AI analysis is the core feature that makes PR Dashboard more than a GitHub client. When you click Analyze (or when auto-analyze is enabled), the app sends the pull request to Claude Code for a structured review. The result is a risk assessment, an architecture impact summary, a test coverage evaluation, and a numbered list of actionable suggestions — all generated from reading the actual code changes in your local repository.
+
+## What the analysis covers
+
+The analysis produces several distinct sections. **Risk level** is a single rating — low, medium, high, or critical — with color coding so you can spot dangerous PRs at a glance. **Summary** is a plain-language description of what the PR does and why it matters. **Architecture impact** identifies whether the change affects the structure of your codebase and lists the specific modules involved. **Test coverage** assesses whether the changes are adequately tested and calls out gaps. **Suggestions** are numbered, actionable items — each with a title, a description, and references to the relevant files.
+
+## Inline suggestions in the diff
+
+AI suggestions don't only appear in the analysis panel. They also show up inline in the diff viewer, anchored to the relevant lines of code. Each suggestion is color-coded by severity: critical suggestions appear in red, warnings in yellow, general suggestions in blue, and praise in green. This means you can see what the AI thinks while reading the code, rather than having to cross-reference a separate panel.
+
+<Accordion title="How does the analysis actually work?">
+  The sidecar service clones the repository locally (if not already cloned) and spawns the Claude Code CLI as a subprocess. Claude reads the PR diff and the surrounding code context using file reading and search tools, then produces a structured JSON response following a specific schema. The analysis is allowed up to 30 turns of tool use, giving Claude enough room to explore the codebase thoroughly before forming its assessment.
+</Accordion>
+
+<Accordion title="How is analysis cached?">
+  Analysis results are cached locally on disk, keyed to the specific PR and its commit SHA. If you re-open a PR that has already been analyzed and no new commits have been pushed, the cached result loads instantly. When new commits arrive after an analysis, the app shows a staleness warning with the number of new commits and changes the Analyze button to "Re-analyze (X new commits)" so you know the cached result may be outdated.
+</Accordion>
+
+<Accordion title="Can I customize what the analysis focuses on?">
+  Yes. The Prompts page lets you create custom analysis prompt templates that control what Claude focuses on during review. You can create repo-specific prompts or a default prompt that applies globally. This is useful if your team has specific review criteria — for example, always checking for SQL injection in a web app, or verifying backward compatibility in a library.
+</Accordion>
+
+<Warning>Analysis requires the Claude Code CLI to be installed and available on your system PATH. If the CLI is not found, analysis will fail with an error message. The analysis also respects the timeout configured in settings (default 120 seconds) — very large PRs may need a higher timeout.</Warning>

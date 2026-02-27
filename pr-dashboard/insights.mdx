@@ -1,0 +1,28 @@
+---
+title: Insights
+description: Team analytics and contribution metrics across your repositories over any date range.
+---
+
+The Insights page is a team-level analytics dashboard that shows contribution and review activity across your followed repositories. It's accessible from the sidebar header and gives engineering leads and team members a quick picture of who's doing what, how much review activity is happening, and how work is distributed across repos.
+
+## Summary cards
+
+Four cards across the top show the headline numbers for your selected date range: total PRs merged, total reviews submitted, number of unique contributors, and number of active repositories. These give you an at-a-glance health check — if reviews are dropping or a repo has gone quiet, you'll see it here.
+
+## Leaderboard
+
+Below the summary cards, a sortable table ranks contributors by activity. Columns include the contributor's name and avatar, the number of PRs they've merged, the number of reviews they've submitted, and their total contributions. Click any column header to sort ascending or descending. This is useful for spotting who's carrying a heavy review load or who might need to pick up more reviews.
+
+## Repository insights
+
+A per-repository breakdown shows how many PRs and reviews each repo has seen during the selected period, along with the top contributors for that repo. This helps identify which parts of the codebase are seeing the most activity and whether review coverage is evenly distributed.
+
+## Filtering and sharing
+
+A date range picker at the top lets you set a custom "from" and "to" date (defaulting to the last 30 days). A repository selector lets you narrow the view to specific repos. A share button captures the entire Insights page as a PNG image and opens it in your file explorer, making it easy to drop into a Slack message or a team retrospective.
+
+<Accordion title="How is insights data calculated?">
+  The app queries GitHub's API for merged pull requests and review events within your selected date range and repositories. All calculations happen locally — nothing is sent to a third-party analytics service. The data refreshes automatically when you change the date range or repository selection.
+</Accordion>
+
+<Note>Insights only reflects activity in the repositories you follow. If a teammate's contributions don't appear, make sure the relevant repos are in your followed list.</Note>

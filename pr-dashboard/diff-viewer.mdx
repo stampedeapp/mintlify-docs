@@ -1,0 +1,26 @@
+---
+title: Diff Viewer
+description: Read code changes file by file with syntax highlighting, inline comments, and AI suggestions.
+---
+
+The diff viewer is the central reading surface for code review. It shows all changed files in a unified diff format with syntax highlighting, line-by-line additions and deletions, and surrounding context lines. It appears in both Quick mode (full-width) and Deep mode (left panel), giving you the same reading experience regardless of which review mode you're in.
+
+## File-by-file navigation
+
+Changes are organized by file. Each file section shows the file path as a header, and the diff content below it. Added lines are highlighted in green, removed lines in red, and unchanged context lines appear in their normal color. This is the same visual language used by GitHub and most diff tools, so it should feel immediately familiar.
+
+## Inline comments
+
+Two types of comments appear directly in the diff, anchored to the relevant lines of code.
+
+**GitHub comments** show the author's avatar and name alongside the comment text. These are the same comments you'd see on the GitHub PR page, but embedded in the diff so you don't have to context-switch to read them.
+
+**AI suggestions** from the analysis are also shown inline, color-coded by severity. Critical issues appear with a red accent, warnings in yellow, general suggestions in blue, and praise in green. Each AI suggestion includes an "Explain comment" button that sends the suggestion to the Chat panel for deeper discussion.
+
+<Accordion title="Why show AI suggestions inline instead of in a separate panel?">
+  Code review is fundamentally about reading code and forming opinions about specific lines. Putting suggestions next to the code they refer to means you evaluate them in context rather than jumping back and forth between a list of issues and the diff. The separate Analysis panel still exists for the big-picture view, but the inline suggestions are where the AI feedback is most useful during actual line-by-line review.
+</Accordion>
+
+<Accordion title="Can I see only GitHub comments or only AI suggestions?">
+  Both types of comments are shown together in the diff. An optional comments panel (available as a right sidebar in Quick mode, or as the Comments tab in Deep mode) shows the full GitHub comment thread in a more traditional threaded format if you prefer to read comments that way.
+</Accordion>

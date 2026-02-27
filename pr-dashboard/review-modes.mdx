@@ -1,0 +1,32 @@
+---
+title: Review Modes
+description: Three review modes let you match the depth of your review to the complexity of the change.
+---
+
+When you select a pull request, the main content area opens in one of three review modes — Intent, Quick, and Deep. Each mode is designed for a different stage of the review process, and you can switch between them at any time using the toggle buttons in the PR header bar.
+
+## Intent mode
+
+Intent mode is the overview. It answers the question "should I care about this PR?" without making you read a single line of code. You see the PR title, author, change statistics (additions, deletions, file count), branch name, CI status, and review status all in one screen. If an AI analysis has been run, it appears here too — showing the risk level, a plain-language summary, architecture impact, test coverage assessment, and a list of suggestions. This is the mode you use to triage your review queue quickly.
+
+<Accordion title="Why does Intent mode trigger analysis automatically?">
+  Intent mode is designed around the idea that you want a fast, high-level understanding of a PR. The AI analysis is the most valuable part of that understanding, so the app automatically triggers it when you open a PR in Intent mode (if it hasn't been run already). This saves you from having to remember to click Analyze every time.
+</Accordion>
+
+## Quick mode
+
+Quick mode maximizes screen space for the diff. A collapsible banner at the top shows the risk level and summary from the AI analysis, but the rest of the screen is dedicated to a full-width unified diff viewer. You see changes file by file with syntax highlighting, inline GitHub comments, and inline AI suggestions color-coded by severity. An optional comments panel can slide in from the right if you need to see the full comment thread.
+
+This is the mode you use when you already know the PR is worth reviewing and you want to read the code efficiently.
+
+## Deep mode
+
+Deep mode splits the screen into two panels. The left side (roughly 60% width) shows the same diff viewer from Quick mode. The right side (roughly 40% width) is a tabbed panel with three tabs: Analysis, Comments, and Chat. Analysis shows the full AI review. Comments shows the GitHub comment thread. Chat lets you have an interactive conversation with Claude about the PR.
+
+This is the mode you use for complex or high-risk changes where you need to dig in, ask questions, and cross-reference the AI analysis while reading the code.
+
+<Accordion title="How does 'Explain comment' work across modes?">
+  When you see an AI suggestion in the diff and want more context, clicking "Explain comment" on that suggestion automatically switches to Deep mode and sends the suggestion to the Chat tab as a question. Claude then explains its reasoning with the full PR context available. This bridges the gap between a quick inline suggestion and a deeper understanding of why the AI flagged something.
+</Accordion>
+
+<Note>The review mode you choose is per-session — the app does not persist your last-used mode. It defaults to Intent mode each time you select a new PR.</Note>
