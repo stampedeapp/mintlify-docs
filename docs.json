@@ -25,6 +25,22 @@
     },
     "tabs": [
       {
+        "tab": "Lets Do This",
+        "groups": [
+          {
+            "group": "Event Setup",
+            "groups": [
+              {
+                "group": "Tickets",
+                "pages": [
+                  "docs/event-setup/tickets/event-create-waitlist"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Guides",
         "groups": [
           {
