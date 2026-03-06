@@ -43,44 +43,38 @@
       },
       {
         "tab": "Guides",
-        "href": "/essentials",
+        "href": "/guides",
         "groups": [
           {
             "group": "Getting started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Hello World",
-            "pages": [
-              "hello_world"
+              "guides/index",
+              "guides/quickstart",
+              "guides/development"
             ]
           },
           {
             "group": "Customization",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "guides/settings",
+              "guides/navigation"
             ]
           },
           {
             "group": "Writing content",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "guides/markdown",
+              "guides/code",
+              "guides/images",
+              "guides/reusable-snippets"
             ]
           },
           {
             "group": "AI tools",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "guides/ai-tools/cursor",
+              "guides/ai-tools/claude-code",
+              "guides/ai-tools/windsurf"
             ]
           }
         ]
