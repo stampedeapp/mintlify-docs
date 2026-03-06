@@ -26,6 +26,7 @@
     "tabs": [
       {
         "tab": "Let's Do This",
+        "hidden": true,
         "groups": [
           {
             "group": "Event Setup",
