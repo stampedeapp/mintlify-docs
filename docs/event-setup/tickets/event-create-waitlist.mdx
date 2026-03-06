@@ -1,0 +1,201 @@
+---
+title: "Event Create Waitlist"
+sidebarTitle: "Waitlist"
+description: "Enable a waitlist on event tickets so participants can queue when capacity is reached."
+---
+
+## Overview
+
+Organisers can enable a waitlist on any event ticket so that when the ticket reaches capacity, participants can join a queue instead of being turned away. There are two modes:
+
+<CardGroup cols={2}>
+  <Card title="Acceptance Waitlist" icon="envelope">
+    Sends a time-limited invitation when capacity opens. Participants must complete booking within the deadline (default 24 hours).
+  </Card>
+  <Card title="Instant Waitlist" icon="bolt">
+    Automatically books participants when capacity opens. Only available for **free tickets** (price must be 0).
+  </Card>
+</CardGroup>
+
+<Frame caption="Ticket list showing waitlist tickets on the Manage Event page">
+  <img src="/images/event-waitlist-ticket-list.png" alt="Ticket list showing waitlist tickets" />
+</Frame>
+
+## Creating a Waitlist Ticket
+
+<Steps>
+  <Step title="Navigate to the Tickets tab">
+    Go to the ticket setup tab for an event occurrence at
+    `/dashboard/o/:organiserId/e/:eventId/occ/:occurrenceId/setup/tickets`.
+  </Step>
+
+  <Step title="Duplicate an existing ticket">
+    Click the ellipsis menu (`...`) on a ticket row and select **Duplicate**.
+
+    <Frame caption="Ellipsis menu with Duplicate option">
+      <img src="/images/event-waitlist-duplicate-menu.png" alt="Duplicate menu on ticket row" />
+    </Frame>
+  </Step>
+
+  <Step title="Rename the duplicated ticket">
+    Clear the title field, enter a new name, then click **Update** > **Save** > **Confirm changes** > **Confirm**.
+  </Step>
+
+  <Step title="Set up capacity">
+    Switch to the **Capacity** tab. Add a new capacity rule, choose **Ticket** as the type, link the newly created ticket, and set a numeric capacity.
+
+    <Frame caption="Capacity tab with ticket-level capacities configured">
+      <img src="/images/event-waitlist-capacity-tab.png" alt="Capacity tab with ticket capacities" />
+    </Frame>
+  </Step>
+
+  <Step title="Create a booking form">
+    Switch to the **Forms** tab. Add a new form with a name, select the ticket, enable booking, and save.
+
+    <Frame caption="Forms tab showing booking forms linked to tickets">
+      <img src="/images/event-waitlist-forms-tab.png" alt="Forms tab with booking forms" />
+    </Frame>
+  </Step>
+
+  <Step title="Enable the waitlist">
+    Return to the **Tickets** tab, edit the ticket, and toggle **Enable Waitlist** on.
+
+    <Frame caption="Waitlist section with the toggle enabled">
+      <img src="/images/event-waitlist-enabled.png" alt="Waitlist section with toggle enabled" />
+    </Frame>
+  </Step>
+
+  <Step title="Choose a waitlist mode">
+    Select either **Acceptance Waitlist** or **Instant Waitlist**.
+
+    - **Acceptance Waitlist** — requires setting "Maximum tickets per application".
+    - **Instant Waitlist** — requires the ticket price to be 0.
+
+    <Frame caption="Acceptance and Instant waitlist radio options">
+      <img src="/images/event-waitlist-acceptance-mode.png" alt="Acceptance and Instant waitlist options" />
+    </Frame>
+  </Step>
+
+  <Step title="Save">
+    Click **Update** > **Save** > **Confirm changes** > **Confirm**.
+  </Step>
+</Steps>
+
+<Info>
+  To **delete a ticket**, edit it and click **Yes, delete ticket** > **I'm sure**.
+</Info>
+
+## States and Edge Cases
+
+<AccordionGroup>
+  <Accordion title="Instant Waitlist on a paid ticket">
+    Selecting **Instant Waitlist** on a ticket with a non-zero price shows an inline error:
+
+    *"Instant Waitlists are only available for free tickets. Instead, select Acceptance."*
+
+    Set the ticket price to 0 before saving.
+
+    <Frame caption="Error shown when selecting Instant Waitlist on a paid ticket">
+      <img src="/images/event-waitlist-instant-error.png" alt="Instant waitlist error on paid ticket" />
+    </Frame>
+  </Accordion>
+
+  <Accordion title="Waitlist toggle disabled">
+    The **Enable Waitlist** toggle is disabled when:
+    - The ticket is newly created and unsaved
+    - No capacity has been set for the ticket
+    - The ticket type is "Application"
+
+    <Frame caption="Waitlist toggle disabled because no capacity is set">
+      <img src="/images/event-waitlist-toggle-disabled.png" alt="Waitlist toggle disabled — no capacity set" />
+    </Frame>
+  </Accordion>
+
+  <Accordion title="Disabling an active waitlist">
+    When the waitlist is currently open (ticket is live and at capacity), toggling waitlist off triggers a confirmation modal before proceeding.
+  </Accordion>
+
+  <Accordion title="Resolution type locked while active">
+    Once the waitlist is open, the Instant/Acceptance radio buttons are disabled to prevent changing mode while participants are queued.
+  </Accordion>
+
+  <Accordion title="Feature-flagged">
+    The entire waitlist section is gated behind the Statsig `waitlists` dynamic config. Acceptance mode and group waitlists have additional sub-flags (`useAcceptanceWaitlist`, `useGroupWaitlists`).
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Every change follows a four-step confirmation: **Update** > **Save** > **Confirm changes** > **Confirm**.
+</Note>
+
+## Technical Reference
+
+<Tabs>
+  <Tab title="Frontend">
+    **Page:** `src/pages/dashboard/o/[organiserId]/e/[eventId]/occ/[occurrenceId]/setup/[tabId]/index.tsx`
+
+    **Ticket setup form:** `src/views/.../EventSetup/components/tickets/form.tsx`
+
+    **Disable waitlist modal:** `src/views/.../EventSetup/components/tickets/DisableWaitlistModal.tsx`
+
+    **Key hooks:**
+
+    | Hook | Purpose |
+    | --- | --- |
+    | `useWaitlistFields` | Reads waitlist field values from form context |
+    | `useIsWaitlistOpen` | Checks if `bookingEnabled === true` AND `remainingCapacity === 0` |
+    | `useWaitlist` | Reads Statsig `waitlists` config for feature flags |
+    | `useFieldGroups` | Partitions editable fields into named groups including `waitlist` |
+
+    Changes are saved via the generic editable-fields system (react-hook-form), not individual mutation calls.
+  </Tab>
+
+  <Tab title="GraphQL">
+    **Query:** `getEditableFields` — fetches all editable fields for a ticket, including all `WAITLIST_*` fields, via `fieldGroup: TICKETS`.
+
+    **Mutations:**
+
+    | Mutation | Purpose |
+    | --- | --- |
+    | `upsertEditableFields` | Saves all ticket field changes including waitlist configuration |
+    | `moveApplicationToTopOfWaitlist` | Reorders a specific application to the front of the queue (used in the Applications view) |
+
+    **Key arguments:**
+
+    <ResponseField name="fieldGroup" type="enum" required>
+      Identifies the field group. Set to `TICKETS`.
+    </ResponseField>
+
+    <ResponseField name="entityId" type="string" required>
+      The ticket ID being edited.
+    </ResponseField>
+
+    <ResponseField name="organiserId" type="string" required>
+      The organiser scope.
+    </ResponseField>
+
+    **Returns:** The updated set of editable fields, each with an `id`, `value`, and metadata.
+  </Tab>
+
+  <Tab title="Backend">
+    Ticket waitlist configuration is persisted through the **editable fields** system. When a waitlist is enabled, the backend creates a **shadow waitlist ticket** — a real ticket of type `APPLICATION_RESOLUTION_TYPE = WAITLIST` at zero price, with a localized "Waitlist - " title prefix. This shadow ticket is linked to the primary ticket via `WAITLIST_TICKET_SLUG`.
+
+    **Acceptance mode:** Creates a reserved entry group (`isWaitlistGroup: true`) with capacity 999. When capacity opens, the system allocates individual reserved entries with a configurable expiry window (default 24 hours, capped by `lastPossibleRegistrationDate`).
+
+    **Instant mode:** Approved applications are immediately converted into real bookings with no manual participant action required.
+
+    **Queue ordering:** FIFO by creation time, with priority override via `moveApplicationToTopOfWaitlist`. The system processes up to 100 applications per pull cycle, gated by available capacity.
+
+    <Warning>
+      When event occurrences are duplicated, waitlist data is copied but `waitlist.enabled` is set to `false` and date fields are shifted to match the new event dates.
+    </Warning>
+  </Tab>
+</Tabs>
+
+## Notes
+
+- Both test cases (`C-1147` for Instant, `C-1193` for Acceptance) are currently marked `.skip` in Playwright, so they do not run in CI.
+- The tests perform full CRUD: duplicate a seed ticket, configure capacity + booking form + waitlist, then delete the ticket as cleanup.
+- The Instant Waitlist test specifically validates the paid-ticket error flow before setting price to 0.
+- All waitlist features are behind the Statsig `waitlists` dynamic config — the feature may not be visible in all environments.
+- Screenshots captured from staging environment (`www.staging.letsdothis.com`) on 2026-03-05.
