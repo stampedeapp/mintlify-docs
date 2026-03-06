@@ -10,15 +10,20 @@ Organisers can enable a waitlist on any event ticket so that when the ticket rea
 
 <CardGroup cols={2}>
   <Card title="Acceptance Waitlist" icon="envelope">
-    Sends a time-limited invitation when capacity opens. Participants must complete booking within the deadline (default 24 hours).
+    Sends a time-limited invitation when capacity opens. Participants must
+    complete booking within the deadline (default 24 hours).
   </Card>
   <Card title="Instant Waitlist" icon="bolt">
-    Automatically books participants when capacity opens. Only available for **free tickets** (price must be 0).
+    Automatically books participants when capacity opens. Only available for
+    **free tickets** (price must be 0).
   </Card>
 </CardGroup>
 
 <Frame caption="Ticket list showing waitlist tickets on the Manage Event page">
-  <img src="/images/event-waitlist-ticket-list.png" alt="Ticket list showing waitlist tickets" />
+  <img
+    src="./images/event-waitlist-ticket-list.png"
+    alt="Ticket list showing waitlist tickets"
+  />
 </Frame>
 
 ## Creating a Waitlist Ticket
@@ -35,6 +40,7 @@ Organisers can enable a waitlist on any event ticket so that when the ticket rea
     <Frame caption="Ellipsis menu with Duplicate option">
       <img src="/images/event-waitlist-duplicate-menu.png" alt="Duplicate menu on ticket row" />
     </Frame>
+
   </Step>
 
   <Step title="Rename the duplicated ticket">
@@ -47,6 +53,7 @@ Organisers can enable a waitlist on any event ticket so that when the ticket rea
     <Frame caption="Capacity tab with ticket-level capacities configured">
       <img src="/images/event-waitlist-capacity-tab.png" alt="Capacity tab with ticket capacities" />
     </Frame>
+
   </Step>
 
   <Step title="Create a booking form">
@@ -55,6 +62,7 @@ Organisers can enable a waitlist on any event ticket so that when the ticket rea
     <Frame caption="Forms tab showing booking forms linked to tickets">
       <img src="/images/event-waitlist-forms-tab.png" alt="Forms tab with booking forms" />
     </Frame>
+
   </Step>
 
   <Step title="Enable the waitlist">
@@ -63,6 +71,7 @@ Organisers can enable a waitlist on any event ticket so that when the ticket rea
     <Frame caption="Waitlist section with the toggle enabled">
       <img src="/images/event-waitlist-enabled.png" alt="Waitlist section with toggle enabled" />
     </Frame>
+
   </Step>
 
   <Step title="Choose a waitlist mode">
@@ -74,6 +83,7 @@ Organisers can enable a waitlist on any event ticket so that when the ticket rea
     <Frame caption="Acceptance and Instant waitlist radio options">
       <img src="/images/event-waitlist-acceptance-mode.png" alt="Acceptance and Instant waitlist options" />
     </Frame>
+
   </Step>
 
   <Step title="Save">
@@ -98,6 +108,7 @@ Organisers can enable a waitlist on any event ticket so that when the ticket rea
     <Frame caption="Error shown when selecting Instant Waitlist on a paid ticket">
       <img src="/images/event-waitlist-instant-error.png" alt="Instant waitlist error on paid ticket" />
     </Frame>
+
   </Accordion>
 
   <Accordion title="Waitlist toggle disabled">
@@ -109,15 +120,18 @@ Organisers can enable a waitlist on any event ticket so that when the ticket rea
     <Frame caption="Waitlist toggle disabled because no capacity is set">
       <img src="/images/event-waitlist-toggle-disabled.png" alt="Waitlist toggle disabled — no capacity set" />
     </Frame>
+
   </Accordion>
 
-  <Accordion title="Disabling an active waitlist">
-    When the waitlist is currently open (ticket is live and at capacity), toggling waitlist off triggers a confirmation modal before proceeding.
-  </Accordion>
+<Accordion title="Disabling an active waitlist">
+  When the waitlist is currently open (ticket is live and at capacity), toggling
+  waitlist off triggers a confirmation modal before proceeding.
+</Accordion>
 
-  <Accordion title="Resolution type locked while active">
-    Once the waitlist is open, the Instant/Acceptance radio buttons are disabled to prevent changing mode while participants are queued.
-  </Accordion>
+<Accordion title="Resolution type locked while active">
+  Once the waitlist is open, the Instant/Acceptance radio buttons are disabled
+  to prevent changing mode while participants are queued.
+</Accordion>
 
   <Accordion title="Feature-flagged">
     The entire waitlist section is gated behind the Statsig `waitlists` dynamic config. Acceptance mode and group waitlists have additional sub-flags (`useAcceptanceWaitlist`, `useGroupWaitlists`).
@@ -148,6 +162,7 @@ Organisers can enable a waitlist on any event ticket so that when the ticket rea
     | `useFieldGroups` | Partitions editable fields into named groups including `waitlist` |
 
     Changes are saved via the generic editable-fields system (react-hook-form), not individual mutation calls.
+
   </Tab>
 
   <Tab title="GraphQL">
@@ -175,6 +190,7 @@ Organisers can enable a waitlist on any event ticket so that when the ticket rea
     </ResponseField>
 
     **Returns:** The updated set of editable fields, each with an `id`, `value`, and metadata.
+
   </Tab>
 
   <Tab title="Backend">
@@ -189,6 +205,7 @@ Organisers can enable a waitlist on any event ticket so that when the ticket rea
     <Warning>
       When event occurrences are duplicated, waitlist data is copied but `waitlist.enabled` is set to `false` and date fields are shifted to match the new event dates.
     </Warning>
+
   </Tab>
 </Tabs>
 
