@@ -26,7 +26,6 @@
     "tabs": [
       {
         "tab": "Lets Do This",
-        "href": "/docs",
         "groups": [
           {
             "group": "Event Setup",
@@ -43,7 +42,6 @@
       },
       {
         "tab": "Guides",
-        "href": "/guides",
         "groups": [
           {
             "group": "Getting started",
@@ -56,17 +54,17 @@
           {
             "group": "Customization",
             "pages": [
-              "guides/settings",
-              "guides/navigation"
+              "guides/essentials/settings",
+              "guides/essentials/navigation"
             ]
           },
           {
             "group": "Writing content",
             "pages": [
-              "guides/markdown",
-              "guides/code",
-              "guides/images",
-              "guides/reusable-snippets"
+              "guides/essentials/markdown",
+              "guides/essentials/code",
+              "guides/essentials/images",
+              "guides/essentials/reusable-snippets"
             ]
           },
           {
@@ -81,7 +79,6 @@
       },
       {
         "tab": "API reference",
-        "href": "/api-reference",
         "groups": [
           {
             "group": "API documentation",
