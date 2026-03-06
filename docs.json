@@ -26,6 +26,7 @@
     "tabs": [
       {
         "tab": "Lets Do This",
+        "href": "/docs",
         "groups": [
           {
             "group": "Event Setup",
@@ -42,6 +43,7 @@
       },
       {
         "tab": "Guides",
+        "href": "/essentials",
         "groups": [
           {
             "group": "Getting started",
@@ -80,10 +82,6 @@
               "ai-tools/claude-code",
               "ai-tools/windsurf"
             ]
-          },
-          {
-            "group": "PR Dashboard App",
-            "pages": []
           }
         ]
       },
